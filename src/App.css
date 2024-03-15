@@ -1,38 +1,66 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.header{
+  display: inline-block;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  color: #7e7e7e;
+  background-color: aqua;
+  width: 100%;
+
+}
+.header ul{
+  display: flex;
+  list-style: none;
+  position: relative;
+  border-radius: 10px;
+  border-color: black;
+  background-color: azure;
+  width: 100%;
+ 
+}
+.header li{
+  margin: 0 30px;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+   font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.backdrop {
+  position: fixed;
+  z-index: 1; 
+  background-color: rgba(155, 153, 153, 0.75);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+}
+
+/* .modalFrame{
+  position: fixed;
+  width: 40rem;
+  height: 20rem;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+  z-index: 6;
+  top: 100px;
+  left: 100px;
+  text-align: center;
+  background-color: #004221;
+  
+} */
