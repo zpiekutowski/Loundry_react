@@ -27,7 +27,7 @@ function handleDetails(orderId){
 }
 
 function handleCloseOrder(orderId){
-  if (window.confirm("POtwierdz wydanie zamowienia")) {
+  if (window.confirm("Potwierdz wydanie zamowienia")) {
       console.log("Wydawanie zamowienia");
 
   }

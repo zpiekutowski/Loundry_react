@@ -32,22 +32,22 @@ function UnitOrders() {
       });
   }, [refresh]);
 
-  async function handleSearch() {
-    console.log(readyNotDisplay);
-    console.log(pickUpDateSearch);
-    console.log(commentSearch);
-    console.log(labelSearch);
-    const comparisionDate = new Date(pickUpDateSearch);
-    const result = await unitOrders.filter(
-        (n) =>
-          (!readyNotDisplay || n.finishDate === null) 
-          && n.tagLabel.toLowerCase().includes(labelSearch) 
-          && n.comment.toLowerCase().includes(commentSearch) 
-          && ((pickUpDateSearch === "") || ((new Date(n.pickUpDate)) <= comparisionDate))
-      )
-    console.log(result);
-    await setUnitOrdersFiltered(result);
-    }
+    useEffect(()=>{
+        if(unitOrders !== null){
+        const comparisionDate = new Date(pickUpDateSearch);
+        const result = unitOrders.filter(
+            (n) =>
+              (!readyNotDisplay || n.finishDate === null) 
+              && n.tagLabel.toLowerCase().includes(labelSearch) 
+              && n.comment.toLowerCase().includes(commentSearch) 
+              && ((pickUpDateSearch === "") || ((new Date(n.pickUpDate)) <= comparisionDate))
+          )
+            setUnitOrdersFiltered(result);
+        }
+
+    },[labelSearch,pickUpDateSearch,commentSearch,readyNotDisplay]);
+
+
 
   function handleClearSearch(){
     document.getElementById("tagLabel").value = "";  
@@ -58,8 +58,6 @@ function UnitOrders() {
     setLabelSearch("");
     setCommentSearch("");
     setPickUpDateSearch(""); 
- 
-    handleSearch();
     }
 
   function handleReadyOrderCheck() {
@@ -148,7 +146,7 @@ function UnitOrders() {
               ></input>
             </th>
             <th>
-              <button onClick={handleSearch}>SZUKAJ</button>
+              {/* <button onClick={handleSearch}>SZUKAJ</button> */}
               <button onClick={handleClearSearch}>WYCZYSC</button>
             </th>
           </tr>
