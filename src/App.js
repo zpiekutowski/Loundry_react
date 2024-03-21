@@ -13,6 +13,9 @@ import AddUnitOrder from "./components/AddUnitOrder";
 import EditUnitOrder from "./components/EditUnitOrder";
 import Orders from "./components/Orders";
 import OrderDetails from "./components/OrderDetails";
+import EditUnitOrderInProgres from "./components/EditUnitOrderInProgres";
+import UnitOrders from "./components/UnitOrders";
+
 
 function App() {
   return (
@@ -25,7 +28,8 @@ function App() {
           <Route path="/new_order" element={<NewOrder />} />
           <Route path="/admin" element={<Administration/>} />
           <Route path="/orders" element={<Orders/>} />
-          
+          <Route path="/orders/units" element={<UnitOrders />} />
+                    
           
           //dodatkowe
           <Route path="/customer/add" element={<AddCustomer />} />
@@ -34,7 +38,9 @@ function App() {
           <Route path="/new_order/add_unit_order" element={<AddUnitOrder />} />
           <Route path="/new_order/edit_unit_order/:idRow" element={<EditUnitOrder />} />
           <Route path="/orders/detils/:idOrder" element={<OrderDetails />} />
+          <Route path="/orders/edit_unit_order/:idUnitOrder" element={<EditUnitOrderInProgres />} />
           
+
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

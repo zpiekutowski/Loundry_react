@@ -80,7 +80,11 @@ function EditUnitOrder() {
          }
        })
        .then((resp)=>{
-         alert(Object.keys(resp) + " : " + Object.values(resp));
+        
+        if(resp !== null){
+          alert(Object.keys(resp) + " : " + Object.values(resp));
+        }
+
       })
       .catch((err) => {
         console.log(err.message);

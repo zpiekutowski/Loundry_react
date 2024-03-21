@@ -14,13 +14,16 @@ function Header_main() {
         <li>
           <Link to="/orders">Zamowienia</Link>
         </li>
-
+        <li>
+          <Link to="/orders/units">Zlecenia</Link>
+        </li>
         <li>
           <Link to="/customer">Klienci</Link>
         </li>
         <li>
           <Link to="/admin">Administracja</Link>
         </li>
+
       </ul>
     </div>
   );

@@ -26,6 +26,12 @@ function handleDetails(orderId){
     navigate("/orders/detils/" + orderId);
 }
 
+function handleCloseOrder(orderId){
+  if (window.confirm("POtwierdz wydanie zamowienia")) {
+      console.log("Wydawanie zamowienia");
+
+  }
+}
 
 
   return (
@@ -54,7 +60,7 @@ function handleDetails(orderId){
                   <th>{item.unitQtn}</th>
                   <th>{item.startingDate}</th>
                   <th>{item.planedFinishDate}</th>
-                  <th>{item.price}</th>
+                  <th>{item.price.toFixed(2)}</th>
                   <th>{
                   (item.ready && "DO WYDANIA")
                   ||(!item.ready && "WTRAKCIE")
@@ -64,7 +70,10 @@ function handleDetails(orderId){
                     <button onClick={()=>{handleDetails(item.id)}}>
                       SZCZEGOLY
                     </button>
-                    
+                    {item.ready && <button onClick={()=>{handleCloseOrder(item.id)}}>
+                      WYDAJ
+                    </button>}
+                                        
                   </th>
                 </tr>
               ))}
