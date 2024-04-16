@@ -15,6 +15,8 @@ import Orders from "./components/Orders";
 import OrderDetails from "./components/OrderDetails";
 import EditUnitOrderInProgres from "./components/EditUnitOrderInProgres";
 import UnitOrders from "./components/UnitOrders";
+import ArchiveOrders from "./components/ArchiveOrders";
+import ArchiveOrderDetails from "./components/ArchiveOrderDetails";
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
           <Route path="/admin" element={<Administration/>} />
           <Route path="/orders" element={<Orders/>} />
           <Route path="/orders/units" element={<UnitOrders />} />
+          <Route path="/archive" element={<ArchiveOrders />} />
+          
                     
           
           //dodatkowe
@@ -39,6 +43,8 @@ function App() {
           <Route path="/new_order/edit_unit_order/:idRow" element={<EditUnitOrder />} />
           <Route path="/orders/detils/:idOrder" element={<OrderDetails />} />
           <Route path="/orders/edit_unit_order/:idUnitOrder" element={<EditUnitOrderInProgres />} />
+          <Route path="/archive/order/:idOrder" element={<ArchiveOrderDetails />} />
+          
           
 
           <Route path="/*" element={<NotFound />} />

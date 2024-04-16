@@ -129,8 +129,9 @@ function NewOrder() {
   function handleSubmitOrder() {
     if (Object.keys(order.unitOrders).length === 0 || order.customer === null) {
       alert("Zamowienie nie jest kompletne");
-    } else {
-      fetch(URL + "/new_order/save_order", {
+    } else {      
+      
+      fetch(URL + "/new_order/save_order?print=" + window.confirm("Drukować etykiety?"), {
         method: "POST",
         credentials: "include",
       })

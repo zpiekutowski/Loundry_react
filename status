@@ -1,0 +1,29 @@
+[33mcommit 89687a90518903ca0ff6d48e51f297b64b2c0b64[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Zbigniew Piekutowski <zbiirp@gmail.com>
+Date:   Thu Mar 21 09:10:26 2024 +0100
+
+    search all files
+
+[33mcommit d459852bba2c6b491c78c45531908198b3e39a08[m
+Author: Zbigniew Piekutowski <zbiirp@gmail.com>
+Date:   Thu Mar 21 09:09:20 2024 +0100
+
+    search function
+
+[33mcommit 341ec45d8d303d0de402a1778c9a4f6dbf2b2d82[m
+Author: Zbigniew Piekutowski <zbiirp@gmail.com>
+Date:   Fri Mar 15 09:46:45 2024 +0100
+
+    AfterAddAllFiles
+
+[33mcommit 3c0b85f13bfb6ccce5aefa6ad226809eb46e057f[m
+Author: Zbigniew Piekutowski <zbiirp@gmail.com>
+Date:   Fri Mar 15 09:44:43 2024 +0100
+
+    FirstCommit
+
+[33mcommit 5641eef3fff24b84e263da466fb4bcb0a663589c[m
+Author: Zbigniew Piekutowski <zbiirp@gmail.com>
+Date:   Tue Feb 27 22:04:57 2024 +0100
+
+    Initialize project using Create React App

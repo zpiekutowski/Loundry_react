@@ -21,6 +21,9 @@ function Header_main() {
           <Link to="/customer">Klienci</Link>
         </li>
         <li>
+          <Link to="/archive">Archiwum</Link>
+        </li>
+        <li>
           <Link to="/admin">Administracja</Link>
         </li>
 

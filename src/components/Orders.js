@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Orders() {
   const [orders, setOrders] = useState(null);
   const navigate = useNavigate();
+  const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     fetch(URL + "/order/all", {
@@ -20,16 +21,26 @@ function Orders() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [refresh]);
 
 function handleDetails(orderId){
     navigate("/orders/detils/" + orderId);
 }
 
-function handleCloseOrder(orderId){
-  if (window.confirm("Potwierdz wydanie zamowienia")) {
-      console.log("Wydawanie zamowienia");
+async function handleCloseOrder(orderId){
+  if (window.confirm("Potwierdz wydanie zamowienia nr: " + orderId)) {
+    const respond = await fetch(URL + "/order/close/" + orderId,{
+      method: "POST",
+      credentials: "include",
+      });
+      const result = await respond.json();
+      if (result.status === true) {
+        alert("Wydano zamowienie: " + orderId);
+        setRefresh(!refresh);
 
+      } else {
+        alert("Wydanie zamowienia nie powiodło się");
+      }
   }
 }
 

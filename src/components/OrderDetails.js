@@ -7,7 +7,7 @@ function OrderDetails() {
   const { idOrder } = useParams();
   const navigate = useNavigate();
   const [order, setOrder] = useState(null);
-  const [refresh, setRefresh] =  useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     fetch(URL + "/order/" + idOrder, {
@@ -23,7 +23,7 @@ function OrderDetails() {
       .catch((err) => {
         console.log(err.message);
       });
-    }, [refresh]);
+  }, [refresh]);
 
   function handleBack() {
     navigate(-1);
@@ -32,8 +32,8 @@ function OrderDetails() {
   function handleEditButton(id) {
     navigate("/orders/edit_unit_order/" + id);
   }
-  function handleReadyButton(id){
-    fetch(URL + "/unit_order/set_finish_date/"+id, {
+  function handleReadyButton(id) {
+    fetch(URL + "/unit_order/set_finish_date/" + id, {
       method: "POST",
       credentials: "include",
     })
@@ -45,15 +45,32 @@ function OrderDetails() {
         }
       })
       .then((resp) => {
-         if(resp !== null && resp !== undefined){
-        alert(Object.keys(resp) + " : " + Object.values(resp));
+        if (resp !== null && resp !== undefined) {
+          alert(Object.keys(resp) + " : " + Object.values(resp));
         }
       })
       .catch((err) => {
-         console.log(err);
+        console.log(err);
       });
   }
 
+  async function handlePrint() {
+    try {
+      const respond = await fetch(URL + "/order/print/" + idOrder,{
+      method: "GET",
+      credentials: "include",
+      });
+      const result = await respond.json();
+
+      if (result.status === true) {
+        alert("Wydrukowano poprawnie");
+      } else {
+        alert("Wydruk nie powidl sie");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div>
@@ -64,7 +81,7 @@ function OrderDetails() {
             Zamownie z dnia:{" "}
             {"  " + order.startDate.toString().split("-").reverse().join("-")}
           </div>
-          
+
           <div>
             Planowany dzien wydania:
             {"  " +
@@ -98,19 +115,22 @@ function OrderDetails() {
                       <th>{item.unitPrice.toFixed(2)}</th>
                       <th>
                         {(item.finishDate === null && "WTRAKCIE") ||
-                         (item.finishDate !== null && item.finishDate
-                            .toString()
-                            .split("-")
-                            .reverse()
-                            .join("-"))}
+                          (item.finishDate !== null &&
+                            item.finishDate
+                              .toString()
+                              .split("-")
+                              .reverse()
+                              .join("-"))}
                       </th>
                       <th>
                         <button onClick={() => handleEditButton(item.id)}>
                           Edytuj
                         </button>
-                        {item.finishDate === null && <button onClick={() => handleReadyButton(item.id)}>
-                          WYKONANE
-                        </button>}
+                        {item.finishDate === null && (
+                          <button onClick={() => handleReadyButton(item.id)}>
+                            WYKONANE
+                          </button>
+                        )}
                       </th>
                     </tr>
                   ))}
@@ -129,6 +149,7 @@ function OrderDetails() {
       )}
       <div>
         <button onClick={handleBack}>POWROT</button>
+        <button onClick={handlePrint}>DRUKUJ</button>
       </div>
     </div>
   );
