@@ -7,7 +7,7 @@ function ArchiveOrderDetails() {
   const { idOrder } = useParams();
   const [order, setOrder] = useState(null);
 
-  function handelBack() {
+  function handleBack() {
     navigate(-1);
   }
 
@@ -38,11 +38,19 @@ function ArchiveOrderDetails() {
           <div>{"  " + order.customer.addres}</div>
           <div>{"  " + order.customer.phone}</div>
           <div>CENA: {"  " + order.price}</div>
-          <div>DATA PRZYJECIA: {"  " + order.startDate.toString().split("-").reverse().join("-")}</div>
           <div>
-            DATA PLANOWANEGO ZAKONCZENIA: {"  " + order.planedFinishDate.toString().split("-").reverse().join("-")}
+            DATA PRZYJECIA:{" "}
+            {"  " + order.startDate.toString().split("-").reverse().join("-")}
           </div>
-          <div>DATA ODBIORU: {"  " + order.pickupDate.toString().split("-").reverse().join("-")}</div>
+          <div>
+            DATA PLANOWANEGO ZAKONCZENIA:{" "}
+            {"  " +
+              order.planedFinishDate.toString().split("-").reverse().join("-")}
+          </div>
+          <div>
+            DATA ODBIORU:{" "}
+            {"  " + order.pickupDate.toString().split("-").reverse().join("-")}
+          </div>
 
           <table className="styled-table">
             <thead>
@@ -64,16 +72,23 @@ function ArchiveOrderDetails() {
                     <th>{item.tagLabel}</th>
                     <th>{item.comment}</th>
                     <th>{item.unitPrice.toFixed(2)}</th>
-                    <th>{item.finishDate.toString().split("-").reverse().join("-")}</th>
-                    
-                    
+                    <th>
+                      {item.finishDate
+                        .toString()
+                        .split("-")
+                        .reverse()
+                        .join("-")}
+                    </th>
                   </tr>
                 ))}
             </tbody>
           </table>
         </div>
       )}
-      <button onClick={handelBack}>POWROT</button>
+      <button 
+      onClick={handleBack}
+      //onKeyDown={e => e.key === 'Enter' ? handleBack : ''}
+      >POWROT</button>
     </div>
   );
 }
