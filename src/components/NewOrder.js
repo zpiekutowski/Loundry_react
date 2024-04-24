@@ -212,14 +212,14 @@ function NewOrder() {
                             handleRemoveUnit(item.rowNumber);
                           }}
                         >
-                          Usun
+                          USUN
                         </button>
                         <button
                           onClick={() => {
                             handelEditUnit(item.rowNumber);
                           }}
                         >
-                          Edytuj
+                          EDYTUJ
                         </button>
                       </th>
                     </tr>

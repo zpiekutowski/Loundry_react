@@ -69,8 +69,8 @@ async function handleCloseOrder(orderId){
                   <th>{item.id}</th>
                   <th>{item.customerName}</th>
                   <th>{item.unitQtn}</th>
-                  <th>{item.startingDate}</th>
-                  <th>{item.planedFinishDate}</th>
+                  <th>{item.startingDate.toString().split("-").reverse().join("-")}</th>
+                  <th>{item.planedFinishDate.toString().split("-").reverse().join("-")}</th>
                   <th>{item.price.toFixed(2)}</th>
                   <th>{
                   (item.ready && "DO WYDANIA")

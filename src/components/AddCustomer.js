@@ -70,8 +70,8 @@ function AddCustomer() {
           </div>
         </form>
         <div>
-          <button onClick={()=>navigate(-1)}>Powrot</button>
-          <button onClick={handlerSubmit}>Submit</button>
+          <button onClick={()=>navigate(-1)}>POWROT</button>
+          <button onClick={handlerSubmit}>OK</button>
         </div>
       </div>
     </div>

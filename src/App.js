@@ -25,7 +25,7 @@ function App() {
       <BrowserRouter>
         <Header_main />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/laundry" element={<Home />} />
           <Route path="/customer" element={<Customer />} />
           <Route path="/new_order" element={<NewOrder />} />
           <Route path="/admin" element={<Administration/>} />

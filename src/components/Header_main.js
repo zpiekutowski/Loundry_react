@@ -5,7 +5,7 @@ function Header_main() {
     <div className="header">
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/laundry">Home</Link>
         </li>
 
         <li>
