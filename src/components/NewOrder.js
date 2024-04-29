@@ -74,7 +74,7 @@ function NewOrder() {
 
   function handleRemoveUnit(id) {
     if (window.confirm("Czy chcesz usunac pozycje?")) {
-      fetch(URL + "new_order/remove_unit/" + id, {
+      fetch(URL + "/new_order/remove_unit/" + id, {
         method: "POST",
         credentials: "include",
       })
@@ -95,7 +95,7 @@ function NewOrder() {
   function handlePlanedFinshDateChange(event) {
     const date = { date: event.target.value };
 
-    fetch(URL + "new_order/set_planed_finish_date", {
+    fetch(URL + "/new_order/set_planed_finish_date", {
       method: "POST",
       credentials: "include",
       headers: { "content-type": "application/json" },
@@ -112,7 +112,7 @@ function NewOrder() {
   }
 
   function handleIsPay() {
-    fetch(URL + "new_order/set_is_paid/" + !order.isPaid, {
+    fetch(URL + "/new_order/set_is_paid/" + !order.isPaid, {
       method: "POST",
       credentials: "include",
     })
@@ -129,12 +129,16 @@ function NewOrder() {
   function handleSubmitOrder() {
     if (Object.keys(order.unitOrders).length === 0 || order.customer === null) {
       alert("Zamowienie nie jest kompletne");
-    } else {      
-      
-      fetch(URL + "/new_order/save_order?print=" + window.confirm("Drukować etykiety?"), {
-        method: "POST",
-        credentials: "include",
-      })
+    } else {
+      fetch(
+        URL +
+          "/new_order/save_order?print=" +
+          window.confirm("Drukować etykiety?"),
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      )
         .then((res) => {
           if (res.status === 200) {
             setRefresh(!refresh);
@@ -147,39 +151,62 @@ function NewOrder() {
   }
 
   return (
-    <div>
+    <div className="main_frame">
       {!activeOrderFlag && (
-        <div>
-          <p>BRAK AKTYWNEGO ZAMOWIENIA</p>
-          <button onClick={handlerNewOrder}>Nowe zamowienie</button>
+        <div className="title">
+          <h3>BRAK AKTYWNEGO ZAMÓWIENIA</h3>
+          <button className="btn" onClick={handlerNewOrder}>
+            NOWE ZAMÓWIENIE
+          </button>
         </div>
       )}
 
       {activeOrderFlag && (
-        <div>
-          <p>SKLADANE ZAMOWIENIE:</p>
+        <div className="title">
+          <h3>SKŁADANIE ZAMÓWIENIA</h3>
           <div>
-            <button onClick={handleChooseCustomer}>KLIENT</button>
-            <button onClick={handleAddUnitOrder}>DODAJ USLUGE</button>
+            <button className="btn" onClick={handleChooseCustomer}>
+              KLIENT
+            </button>
+            <button className="btn" onClick={handleAddUnitOrder}>
+              DODAJ USŁUGĘ
+            </button>
           </div>
           <br />
           <div>
             <div>
-              Data:{" "}
-              {order &&
-                order.startDate.toString().split("-").reverse().join("-")}{" "}
+              <div className="tilte_fill">
+                <div className="title_form">Data: </div>
+                <div className="fill">
+                  {order &&
+                    order.startDate
+                      .toString()
+                      .split("-")
+                      .reverse()
+                      .join("-")}{" "}
+                </div>
+              </div>
             </div>
-            <div>
-              Klient:
-              {order && order.customer && order.customer.name}{" "}
+
+            <div className="tilte_fill">
+              <div className="title_form">Klient:</div>
+              <div className="fill">
+                {order && order.customer && order.customer.name}{" "}
+              </div>
             </div>
-            <div>
-              Adres:
-              {order && order.customer && order.customer.addres}{" "}
+            <div className="tilte_fill">
+              <div className="title_form">Adres:</div>
+
+              <div className="fill">
+                {order && order.customer && order.customer.addres}{" "}
+              </div>
             </div>
-            <div>
-              Telefon:
-              {order && order.customer && order.customer.phone}{" "}
+            <div className="tilte_fill">
+              <div className="title_form"> Telefon:</div>
+
+              <div className="fill">
+                {order && order.customer && order.customer.phone}{" "}
+              </div>
             </div>
 
             <table className="styled-table">
@@ -190,7 +217,7 @@ function NewOrder() {
                   <th>TAG LABEL</th>
                   <th>UWAGI</th>
 
-                  <th>Cena</th>
+                  <th>CENA</th>
                   <th>AKCJA</th>
                 </tr>
               </thead>
@@ -202,19 +229,21 @@ function NewOrder() {
                       <th>{item.rowNumber}</th>
                       <th>{item.type.id + " : " + item.type.descryption}</th>
                       <th>{item.tag}</th>
-                      <th>{item.comment}</th>
+                      <th className="tr-comments">{item.comment}</th>
 
                       <th>{item.price.toFixed(2)}</th>
 
                       <th>
                         <button
+                          className="btn1"
                           onClick={() => {
                             handleRemoveUnit(item.rowNumber);
                           }}
                         >
-                          USUN
+                          USUŃ
                         </button>
                         <button
+                          className="btn1"
                           onClick={() => {
                             handelEditUnit(item.rowNumber);
                           }}
@@ -227,33 +256,39 @@ function NewOrder() {
               </tbody>
             </table>
 
-            <div>
-              SUMA: {"  "}
-              {order && order.price.toFixed(2)}{" "}
+            <div className="tilte_fill">
+              <div className="title_form1">SUMA:</div>
+              <div className="">{order && order.price.toFixed(2)}</div>
             </div>
-            <div>
-              <label>Data zakonczenia {"  "}</label>
+
+            <div className="tilte_fill">
+              <div className="title_form1">Data zakonczenia: {"  "}</div>
               <input
                 type="date"
                 value={order && order.planedFinishDate}
                 onChange={handlePlanedFinshDateChange}
               ></input>
             </div>
-            <div style={{ display: "flex" }}>
-              <label>Platnosc: {"  "}</label>
-              <input
+            <div className="tilte_fill">
+              <div className="title_form1">Płatność:</div>
+              <input 
                 type="checkbox"
                 onChange={handleIsPay}
                 checked={order && order.isPaid}
               ></input>
-              <div>{order && order.isPaid === true && "ZAPLACONO"}</div>
+              <div>{order && order.isPaid === true && "ZAPŁACONO"}</div>
               <div>
-                {order && order.isPaid === false && "PLATNE PRZY ODBIORZE"}
+                {order && order.isPaid === false && "PŁATNE PRZY ODBIORZE"}
               </div>
             </div>
+            <div className="space"></div>
             <div>
-              <button onClick={handleCancelButton}>ANULUJ ZAMOWIENIE</button>
-              <button onClick={handleSubmitOrder}>ZAKONCZ ZAMOWIENIE</button>
+              <button className="btn" onClick={handleCancelButton}>
+                ANULUJ ZAMÓWIENIE
+              </button>
+              <button className="btn" onClick={handleSubmitOrder}>
+                ZAKOŃCZ ZAMÓWIENIE
+              </button>
             </div>
           </div>
         </div>

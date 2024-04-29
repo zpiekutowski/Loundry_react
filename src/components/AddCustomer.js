@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {URL} from "../properties";
-
+import { URL } from "../properties";
 
 function AddCustomer() {
- // const [id, setId] = useState("");
+  // const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [addres, setAddres] = useState("");
   const [phone, setPhone] = useState("");
   const navigate = useNavigate();
-  
+
   async function handlerSubmit() {
     const customer = { name, addres, phone };
 
@@ -34,44 +33,41 @@ function AddCustomer() {
   }
 
   return (
-    <div >
+    <div className="main_frame">
       <div>
-        <p>Nowy Klient</p>
+        <div className="title"><h3>NOWY KLIENT</h3></div>
+        
         <form>
-          {/* <div>
-            <label>ID</label>
-            <input type="text" value={id} disabled="disabled"></input>
-          </div> */}
-
-          <div>
-            <label>Nazwa</label>
-            <input
+          <div className="intut-customer">
+            <div className="title_form">Nazwa</div>
+            <input className="input"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
             ></input>
           </div>
 
-          <div>
-            <label>Adres</label>
-            <input
+          <div className="intut-customer">
+            <div className="title_form">Adres</div>
+            <input className="input"
               type="text"
               value={addres}
               onChange={(e) => setAddres(e.target.value)}
             ></input>
           </div>
-          <div>
-            <label>Telefon</label>
-            <input
+          <div className="intut-customer">
+            <div className="title_form">Telefon</div>
+            <input className="input"
               type="text"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             ></input>
           </div>
         </form>
+        <div className="space"></div>
         <div>
-          <button onClick={()=>navigate(-1)}>POWROT</button>
-          <button onClick={handlerSubmit}>OK</button>
+          <button className="btn" onClick={() => navigate(-1)}>POWROT</button>
+          <button className="btn" onClick={handlerSubmit}>OK</button>
         </div>
       </div>
     </div>

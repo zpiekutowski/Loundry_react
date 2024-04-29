@@ -46,20 +46,21 @@ async function handleCloseOrder(orderId){
 
 
   return (
-    <div>
-      <div>AKTYWNE ZAMOWIENIA</div>
+    <div className="main_frame">
+      <div className="title">
+        <h3>AKTYWNE ZAMÓWIENIA</h3></div>
       <div>
         <table className="styled-table">
           <thead>
             <tr>
-              <th>Id</th>
+              <th>#</th>
               <th>Klient</th>
               <th>Ilosc pozycji</th>
               <th>Data Przyjęcia</th>
               <th>Na kiedy</th>
               <th>Cena</th>
               <th>Status</th>
-              <th>AKCJA</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -77,11 +78,13 @@ async function handleCloseOrder(orderId){
                   ||(!item.ready && "WTRAKCIE")
                    }</th>
                   
-                  <th>
-                    <button onClick={()=>{handleDetails(item.id)}}>
+                  <th className="tr-action">
+                    <button className="btn1"
+                     onClick={()=>{handleDetails(item.id)}}>
                       SZCZEGOLY
                     </button>
-                    {item.ready && <button onClick={()=>{handleCloseOrder(item.id)}}>
+                    {item.ready && <button className="btn1"
+                     onClick={()=>{handleCloseOrder(item.id)}}>
                       WYDAJ
                     </button>}
                                         

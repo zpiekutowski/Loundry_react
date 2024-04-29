@@ -70,17 +70,19 @@ function Customer() {
   }, [refresh]);
 
   return (
-    <div>
-      <p>Menu Klienta: </p>
+    <div className="main_frame">
+      <div className="title">
+        <h3>MENU KLIENTA </h3> </div>
       <div style={{ display: "flex" }}>
-        <button onClick={handlerAddCustomer}>Dodaj Klienta</button>
-        <input
+        <button className="btn1"
+         onClick={handlerAddCustomer}>DODAJ KLIENTA</button>
+        <input className="input"
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></input>
-        <button onClick={handlerSearch}>Szukaj</button>
-        <button onClick={handlerClearSearch}>Wyczysc</button>
+        <button className="btn1" onClick={handlerSearch}>SZUKAJ</button>
+        <button className="btn1" onClick={handlerClearSearch}>WYCZYŚĆ</button>
       </div>
 
       <table className="styled-table">
@@ -90,7 +92,7 @@ function Customer() {
             <th>Nazwa</th>
             <th>Addres</th>
             <th>Telefon</th>
-            <th>ACTION</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -102,19 +104,19 @@ function Customer() {
                 <th>{item.addres}</th>
                 <th>{item.phone}</th>
                 <th>
-                  <button
+                  <button className="btn1"
                     onClick={() => {
                       handlerEditCustomer(item.id);
                     }}
                   >
                     Aktualizacja
                   </button>
-                  <button
+                  <button className="btn1"
                     onClick={() => {
                       handlerDeleteCustomer(item.id);
                     }}
                   >
-                    Usun
+                    Usuń
                   </button>
                 </th>
               </tr>

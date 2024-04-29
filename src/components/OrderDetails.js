@@ -56,9 +56,9 @@ function OrderDetails() {
 
   async function handlePrint() {
     try {
-      const respond = await fetch(URL + "/order/print/" + idOrder,{
-      method: "GET",
-      credentials: "include",
+      const respond = await fetch(URL + "/order/print/" + idOrder, {
+        method: "GET",
+        credentials: "include",
       });
       const result = await respond.json();
 
@@ -73,23 +73,38 @@ function OrderDetails() {
   }
 
   return (
-    <div>
+    <div className="main_frame">
       {order && (
         <div>
-          <div>Zamowienie nr:{"  " + order.id}</div>
-          <div>
-            Zamownie z dnia:{" "}
-            {"  " + order.startDate.toString().split("-").reverse().join("-")}
+          <h3>Zamowienie nr:{"  " + order.id}</h3>
+          <div className="tilte_fill">
+            <div className="title_form">Z dnia:</div>
+            <div className="fill">
+              {"  " + order.startDate.toString().split("-").reverse().join("-")}
+            </div>
           </div>
 
-          <div>
-            Planowany dzien wydania:
-            {"  " +
-              order.planedFinishDate.toString().split("-").reverse().join("-")}
+          <div className="tilte_fill">
+            <div className="title_form"> Na dzień:</div>
+            <div className="fill">
+              {order.planedFinishDate.toString().split("-").reverse().join("-")}
+            </div>
           </div>
-          <div>Klient:{order.customer.id + " - " + order.customer.name} </div>
-          <div> Adres: {order.customer.addres} </div>
-          <div> Telefon: {order.customer.phone}</div>
+          <div className="tilte_fill">
+            <div className="title_form">Klient:</div>
+            <div className="fill">
+              {order.customer.id + " - " + order.customer.name}{" "}
+            </div>
+          </div>
+          <div className="tilte_fill">
+            <div className="title_form">Adres:</div>
+            <div className="fill"> {order.customer.addres} </div>
+          </div>
+
+          <div className="tilte_fill">
+            <div className="title_form">Telefon:</div>
+            <div className="fill">{order.customer.phone}</div>
+          </div>
           <div>
             <table className="styled-table">
               <thead>
@@ -100,7 +115,7 @@ function OrderDetails() {
                   <th>UWAGI</th>
                   <th>Cena</th>
                   <th>Data zakonczenia</th>
-                  <th>AKCJA</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -111,7 +126,7 @@ function OrderDetails() {
                       <th>{item.id}</th>
                       <th>{item.type.id + " : " + item.type.descryption}</th>
                       <th>{item.tagLabel}</th>
-                      <th>{item.comment}</th>
+                      <th className="tr-comments">{item.comment}</th>
                       <th>{item.unitPrice.toFixed(2)}</th>
                       <th>
                         {(item.finishDate === null && "WTRAKCIE") ||
@@ -122,12 +137,18 @@ function OrderDetails() {
                               .reverse()
                               .join("-"))}
                       </th>
-                      <th>
-                        <button onClick={() => handleEditButton(item.id)}>
-                          Edytuj
+                      <th className="tr-action">
+                        <button
+                          className="btn1"
+                          onClick={() => handleEditButton(item.id)}
+                        >
+                          EDYTUJ
                         </button>
                         {item.finishDate === null && (
-                          <button onClick={() => handleReadyButton(item.id)}>
+                          <button
+                            className="btn1"
+                            onClick={() => handleReadyButton(item.id)}
+                          >
                             WYKONANE
                           </button>
                         )}
@@ -137,19 +158,28 @@ function OrderDetails() {
               </tbody>
             </table>
           </div>
-          <div>
-            SUMA:{order.price.toFixed(2)}
-            <div>
-              {(order.isPaid === true && "ZAPLACONO") ||
-                (order.isPaid === false && "PLATNE PRZY ODBIORZE")}
-            </div>
+          <div className="tilte_fill">
+            <div className="title_form1">SUMA:</div>
+            <div>{order.price.toFixed(2)}</div>
           </div>
-          <div> {} </div>
+          
+          <div className="tilte_fill">
+          <div className="title_form1"></div>
+            {(order.isPaid === true && "ZAPŁACONO") ||
+              (order.isPaid === false && "PŁATNE PRZY ODBIORZE")}
+          </div>
+
+          <div></div>
         </div>
       )}
+      <div className="space"></div>
       <div>
-        <button onClick={handleBack}>POWROT</button>
-        <button onClick={handlePrint}>DRUKUJ</button>
+        <button className="btn" onClick={handleBack}>
+          POWROT
+        </button>
+        <button className="btn" onClick={handlePrint}>
+          DRUKUJ
+        </button>
       </div>
     </div>
   );

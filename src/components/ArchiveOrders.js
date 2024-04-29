@@ -39,7 +39,6 @@ function ArchiveOrders() {
   function handleSearch() {
     const idNumber = parseInt(search);
     if (Number.isInteger(idNumber)) {
-      console.log(idNumber);
       navigate("/archive/order/" + idNumber);
     } else {
       alert("Niewlasciwy format");
@@ -61,22 +60,35 @@ function ArchiveOrders() {
   }
 
   return (
-    <div>
-      <div>ARCHIWUM</div>
-      <button onClick={handlePrev} disabled={prev}>
-        PREV
-      </button>
-      <button onClick={handleNext} disabled={next}>
-        NEXT
-      </button>
+    <div className="main_frame">
+      <div className="title">
+        <h3>ARCHIWUM</h3>
+      </div>
+      <div className="space"></div>
+
+      {!prev && (
+        <button className="btn1" onClick={handlePrev} disabled={prev}>
+          PREV
+        </button>
+      )}
+      {prev && <button className="btn1">-</button>}
+
+      {!next && (
+        <button className="btn1" onClick={handleNext} disabled={next}>
+          NEXT
+        </button>
+      )}
+      {next && <button className="btn1">-</button>}
 
       <input
+        className="order_input_search"
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       ></input>
-      <button onClick={handleSearch}>SZUKAJ</button>
-
+      <button className="btn1" onClick={handleSearch}>
+        SZUKAJ
+      </button>
       <table className="styled-table">
         <thead>
           <tr>
@@ -85,7 +97,7 @@ function ArchiveOrders() {
             <th>Data Przyjęcia</th>
             <th>Data wydania</th>
             <th>Cena</th>
-            <th>AKCJA</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -104,6 +116,7 @@ function ArchiveOrders() {
 
                 <th>
                   <button
+                    className="btn1"
                     onClick={() => {
                       handleDetails(item.id);
                     }}

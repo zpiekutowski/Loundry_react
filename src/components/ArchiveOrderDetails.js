@@ -12,44 +12,81 @@ function ArchiveOrderDetails() {
   }
 
   useEffect(() => {
-    fetch(URL + "/archive/order/" + idOrder, {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((resp) => {
-        setOrder(resp);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    handleFetch();
   }, []);
 
+  async function handleFetch() {
+    try {
+      const result = await fetch(URL + "/archive/order/" + idOrder, {
+        method: "GET",
+        credentials: "include",
+      });
+      if (result.status === 200) {
+        const data = await result.json();
+        setOrder(data);
+      } else if (result.status === 204) {
+        setOrder(null);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
-    <div>
-      <div>Szczegoly zamowienia</div>
+    <div className="main_frame">
+      {order === null && (
+        <div>
+          <h3>ZAMOWINIE NR:{"  " + idOrder}</h3>
+          <h3>NIE ISTNIEJE</h3>
+        </div>
+      )}
+
       {order && (
         <div>
-          <div>ZAMOWINIE NR:{"  " + order.id} </div>
+          <h3>ZAMOWINIE NR:{order.id} </h3>
           <div>KLIENT: </div>
-          <div>{order.customer.id + "  " + order.customer.name}</div>
-          <div>{"  " + order.customer.addres}</div>
-          <div>{"  " + order.customer.phone}</div>
-          <div>CENA: {"  " + order.price}</div>
-          <div>
-            DATA PRZYJECIA:{" "}
-            {"  " + order.startDate.toString().split("-").reverse().join("-")}
+          <div className="tilte_fill">
+            <div className="title_form"></div>
+            <div className="fill">
+              {order.customer.id + "  " + order.customer.name}
+            </div>
           </div>
-          <div>
-            DATA PLANOWANEGO ZAKONCZENIA:{" "}
-            {"  " +
-              order.planedFinishDate.toString().split("-").reverse().join("-")}
+
+          <div className="tilte_fill">
+            <div className="title_form"></div>
+            <div className="fill">{order.customer.addres}</div>
           </div>
-          <div>
-            DATA ODBIORU:{" "}
-            {"  " + order.pickupDate.toString().split("-").reverse().join("-")}
+          <div className="tilte_fill">
+            <div className="title_form"></div>
+            <div className="fill">{order.customer.phone}</div>
+          </div>
+          <div className="space"></div>
+          <div className="tilte_fill">
+            <div className="title_form">CENA:</div>
+            <div className="fill">{order.price}</div>
+          </div>
+          <div className="space"></div>
+
+          <div className="space"></div>
+          <div className="tilte_fill">
+            <div className="title_form1">DATA PRZYJECIA:</div>
+            <div className="fill">
+              {order.startDate.toString().split("-").reverse().join("-")}
+            </div>
+          </div>
+
+          <div className="tilte_fill">
+            <div className="title_form1">DATA PLANOWANA:</div>
+            <div className="fill">
+              {order.planedFinishDate.toString().split("-").reverse().join("-")}
+            </div>
+          </div>
+
+          <div className="tilte_fill">
+            <div className="title_form1">DATA ODBIORU:</div>
+            <div className="fill">
+              {order.pickupDate.toString().split("-").reverse().join("-")}
+            </div>
           </div>
 
           <table className="styled-table">
@@ -70,7 +107,7 @@ function ArchiveOrderDetails() {
                     <th>{item.id}</th>
                     <th>{item.type.id + " " + item.type.descryption}</th>
                     <th>{item.tagLabel}</th>
-                    <th>{item.comment}</th>
+                    <th className="tr-comments">{item.comment}</th>
                     <th>{item.unitPrice.toFixed(2)}</th>
                     <th>
                       {item.finishDate
@@ -85,10 +122,9 @@ function ArchiveOrderDetails() {
           </table>
         </div>
       )}
-      <button 
-      onClick={handleBack}
-      //onKeyDown={e => e.key === 'Enter' ? handleBack : ''}
-      >POWROT</button>
+      <button className="btn" onClick={handleBack}>
+        POWROT
+      </button>
     </div>
   );
 }

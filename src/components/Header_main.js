@@ -12,10 +12,10 @@ function Header_main() {
           <Link to="/new_order">Nowe Zamowienie</Link>
         </li>
         <li>
-          <Link to="/orders">Zamowienia</Link>
+          <Link to="/orders">Zamówienia</Link>
         </li>
         <li>
-          <Link to="/orders/units">Zlecenia</Link>
+          <Link to="/orders/units">Zadania</Link>
         </li>
         <li>
           <Link to="/customer">Klienci</Link>

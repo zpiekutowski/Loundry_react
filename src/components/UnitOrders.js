@@ -4,7 +4,6 @@ import { URL } from "../properties";
 import { useNavigate } from "react-router-dom";
 
 function UnitOrders() {
-  
   const navigate = useNavigate();
   const [refresh, setRefresh] = useState(false);
 
@@ -33,33 +32,30 @@ function UnitOrders() {
       });
   }, [refresh]);
 
-    useEffect(()=>{
-        if(unitOrders !== null){
-        const comparisionDate = new Date(pickUpDateSearch);
-        const result = unitOrders.filter(
-            (n) =>
-              (!readyNotDisplay || n.finishDate === null) 
-              && n.tagLabel.toLowerCase().includes(labelSearch) 
-              && n.comment.toLowerCase().includes(commentSearch) 
-              && ((pickUpDateSearch === "") || ((new Date(n.pickUpDate)) <= comparisionDate))
-          )
-            setUnitOrdersFiltered(result);
-        }
+  useEffect(() => {
+    if (unitOrders !== null) {
+      const comparisionDate = new Date(pickUpDateSearch);
+      const result = unitOrders.filter(
+        (n) =>
+          (!readyNotDisplay || n.finishDate === null) &&
+          n.tagLabel.toLowerCase().includes(labelSearch) &&
+          n.comment.toLowerCase().includes(commentSearch) &&
+          (pickUpDateSearch === "" || new Date(n.pickUpDate) <= comparisionDate)
+      );
+      setUnitOrdersFiltered(result);
+    }
+  }, [labelSearch, pickUpDateSearch, commentSearch, readyNotDisplay]);
 
-    },[labelSearch,pickUpDateSearch,commentSearch,readyNotDisplay]);
-
-
-
-  function handleClearSearch(){
-    document.getElementById("tagLabel").value = "";  
-    document.getElementById("pickUpDate").value = "";  
-    document.getElementById("comment").value = "";  
-    document.getElementById("readyCheck").checked = false; 
+  function handleClearSearch() {
+    document.getElementById("tagLabel").value = "";
+    document.getElementById("pickUpDate").value = "";
+    document.getElementById("comment").value = "";
+    document.getElementById("readyCheck").checked = false;
     setReadyNotDisplay(false);
     setLabelSearch("");
     setCommentSearch("");
-    setPickUpDateSearch(""); 
-    }
+    setPickUpDateSearch("");
+  }
 
   function handleReadyOrderCheck() {
     if (document.getElementById("readyCheck").checked) {
@@ -96,8 +92,10 @@ function UnitOrders() {
   }
 
   return (
-    <div>
-      <div>ZADANIA</div>
+    <div className="main_frame">
+      <div className="title">
+        <h3>ZADANIA</h3>
+      </div>
       <table className="styled-table">
         <thead>
           <tr>
@@ -108,7 +106,7 @@ function UnitOrders() {
             <th>Cena</th>
             <th>Data wykonania</th>
             <th>Wydanie Dnia</th>
-            <th>AKCJA</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -116,7 +114,7 @@ function UnitOrders() {
             <th></th>
             <th>FILTRY</th>
             <th>
-              <input
+              <input className="input_tag_search"
                 type="text"
                 id="tagLabel"
                 onChange={(e) => {
@@ -125,7 +123,7 @@ function UnitOrders() {
               ></input>
             </th>
             <th>
-              <input
+              <input className="input_comments_search"
                 type="text"
                 id="comment"
                 onChange={(e) => setCommentSearch(e.target.value.toLowerCase())}
@@ -147,8 +145,7 @@ function UnitOrders() {
               ></input>
             </th>
             <th>
-              {/* <button onClick={handleSearch}>SZUKAJ</button> */}
-              <button onClick={handleClearSearch}>WYCZYSC</button>
+              <button className="btn1" onClick={handleClearSearch}>WYCZYSC</button>
             </th>
           </tr>
 
@@ -158,7 +155,7 @@ function UnitOrders() {
                 <th>{item.id}</th>
                 <th>{item.type.id + " : " + item.type.descryption}</th>
                 <th>{item.tagLabel}</th>
-                <th>{item.comment}</th>
+                <th className="tr-comments">{item.comment}</th>
                 <th>{item.price.toFixed(2)}</th>
                 <th>
                   {(item.finishDate === null && "WTRAKCIE") ||
@@ -172,12 +169,12 @@ function UnitOrders() {
                 <th>
                   {item.pickUpDate.toString().split("-").reverse().join("-")}
                 </th>
-                <th>
-                  <button onClick={() => handleEditButton(item.id)}>
-                    Edytuj
+                <th className="tr-action">
+                  <button className="btn1" onClick={() => handleEditButton(item.id)}>
+                    EDYTUJ
                   </button>
                   {item.finishDate === null && (
-                    <button onClick={() => handleReadyButton(item.id)}>
+                    <button className="btn1" onClick={() => handleReadyButton(item.id)}>
                       WYKONANE
                     </button>
                   )}

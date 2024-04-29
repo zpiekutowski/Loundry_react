@@ -96,7 +96,7 @@ async function handlerEditSubmitButton(){
           body: JSON.stringify(servedUnit),
         });
         if (result.ok) {
-          alert("Klien zostal zautualizowany");
+          alert("Usługa została zaktualizowana");
           setId(0);
           setDescryption("");
           setEditFlag(false);
@@ -115,42 +115,36 @@ async function handlerEditSubmitButton(){
 
 
   return (
-    <div>
+    <div className="main_frame">
       
       
       { editFlag &&
         <div>
-          <p>EDYTUJ USLUGE:</p>
+          <h3>EDYTUJ USLUGE:</h3>
           <div>
-          <input
-              type="text"
-              disabled="disabled"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-            ></input>
-            
-            <input
+          {"ID: " + id}  
+            <input className="input_su"
               type="text"
               value={descryption}
               onChange={(e) => setDescryption(e.target.value)}
             ></input>
-            <button onClick={handlerEditSubmitButton}>ZAPISZ</button>
-            <button onClick={handlerEditCancelButton}>CANCEL</button>
+            <button className="btn1" onClick={handlerEditSubmitButton}>ZAPISZ</button>
+            <button className="btn1" onClick={handlerEditCancelButton}>CANCEL</button>
           </div>
         </div>
       }
       
       
       { !editFlag &&
-        <div>
-          <p>DODAJ USLUGE:</p>
+        <div className="title">
+          <h3>DODAJ USŁUGĘ:</h3>
           <div>
-            <input
+            <input className="input"
               type="text"
               value={descryption}
               onChange={(e) => setDescryption(e.target.value)}
             ></input>
-            <button onClick={handlerAddServedUnit}>ZAPISZ</button>
+            <button className="btn1" onClick={handlerAddServedUnit}>ZAPISZ</button>
           </div>
         </div>
       }
@@ -160,7 +154,7 @@ async function handlerEditSubmitButton(){
           <tr>
             <th>Id</th>
             <th>Opis</th>
-            <th>AKCJA</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -170,8 +164,8 @@ async function handlerEditSubmitButton(){
                 <th>{item.id} </th>
                 <th>{item.descryption} </th>
                 <th>
-                  <button onClick={()=>{handlerEdit(item.id)}}>Edycja</button>
-                  <button
+                  <button className="btn1" onClick={()=>{handlerEdit(item.id)}}>Edycja</button>
+                  <button className="btn1"
                     onClick={() => {
                       handlerRemoveService(item.id);
                     }}
