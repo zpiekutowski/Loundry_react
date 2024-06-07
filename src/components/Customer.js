@@ -48,7 +48,8 @@ function Customer() {
           alert("Poprawnie usunieto klinta");
           setRefresh((refresh) => !refresh);
         } else {
-          alert("Blad usuniecia");
+          const res = await result.json();
+          alert("Nie mozna usunac klienta: "+ res.message);
         }
       } catch (error) {
         console.log(error.message);
