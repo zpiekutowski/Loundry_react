@@ -24,6 +24,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Header_main />
+        
         <Routes>
           <Route path="/laundry" element={<Home />} />
           <Route path="/customer" element={<Customer />} />

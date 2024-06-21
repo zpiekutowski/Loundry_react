@@ -14,6 +14,10 @@ function UnitOrders() {
   const [labelSearch, setLabelSearch] = useState("");
   const [commentSearch, setCommentSearch] = useState("");
   const [pickUpDateSearch, setPickUpDateSearch] = useState("");
+  const [typeSearch, setTypeSearch] = useState("");
+  const [orderSearch, setOrderSearch] = useState("");
+  const [unitOrdersearch, setUnitOrderSearch] = useState("");
+
 
   useEffect(() => {
     fetch(URL + "/unit_order/all", {
@@ -25,36 +29,59 @@ function UnitOrders() {
       })
       .then((respond) => {
         setUnitOrders(respond);
+        //filerOrders();  
         setUnitOrdersFiltered(respond);
+        clearAllSearch()
       })
       .catch((err) => {
         console.log(err);
       });
   }, [refresh]);
 
-  useEffect(() => {
+  function filerOrders() {
     if (unitOrders !== null) {
       const comparisionDate = new Date(pickUpDateSearch);
       const result = unitOrders.filter(
         (n) =>
           (!readyNotDisplay || n.finishDate === null) &&
-          n.tagLabel.toLowerCase().includes(labelSearch) &&
+          (n.tagLabel.toLowerCase().includes(labelSearch) ||
+            n.tagLabelNo.includes(labelSearch)) &&
+          (n.type.id.toString().includes(typeSearch)) &&
           n.comment.toLowerCase().includes(commentSearch) &&
+          (n.orderId.toString().includes(orderSearch)) &&
+          n.id.toString().includes(unitOrdersearch) &&
           (pickUpDateSearch === "" || new Date(n.pickUpDate) <= comparisionDate)
       );
       setUnitOrdersFiltered(result);
     }
-  }, [labelSearch, pickUpDateSearch, commentSearch, readyNotDisplay]);
+  }
 
-  function handleClearSearch() {
+  useEffect(() => {
+    filerOrders()
+  }, [unitOrdersearch, labelSearch, pickUpDateSearch, commentSearch, readyNotDisplay, typeSearch, orderSearch]);
+
+  function clearAllSearch(){
+    document.getElementById("type").value = "";
     document.getElementById("tagLabel").value = "";
     document.getElementById("pickUpDate").value = "";
     document.getElementById("comment").value = "";
+    document.getElementById("order").value = "";
     document.getElementById("readyCheck").checked = false;
+    document.getElementById("unitOrder").value = "";
+
     setReadyNotDisplay(false);
     setLabelSearch("");
     setCommentSearch("");
     setPickUpDateSearch("");
+    setTypeSearch("");
+    setOrderSearch("");
+    setUnitOrderSearch("");
+    
+  }
+
+  function handleClearSearch() {
+    clearAllSearch();
+    setRefresh(!refresh);
   }
 
   function handleReadyOrderCheck() {
@@ -100,19 +127,44 @@ function UnitOrders() {
         <thead>
           <tr>
             <th>ID.</th>
-            <th>RODZAJ</th>
-            <th>TAG LABEL</th>
+            <th>ZAM</th>
+            <th>TYP</th>
+            <th>TAG LBL</th>
             <th>UWAGI</th>
             <th>Cena</th>
-            <th>Data wykonania</th>
+            <th>Do Wykonania</th>
             <th>Wydanie Dnia</th>
             <th></th>
           </tr>
-        </thead>
-        <tbody>
+
           <tr>
-            <th></th>
-            <th>FILTRY</th>
+            <th>
+              <input className="input_tag_search"
+                type="text"
+                id="unitOrder"
+                onChange={(e) => {
+                  setUnitOrderSearch(e.target.value.toLowerCase());
+                }}
+              ></input>
+            </th>
+            <th>
+              <input className="input_tag_search"
+                type="text"
+                id="order"
+                onChange={(e) => {
+                  setOrderSearch(e.target.value.toLowerCase());
+                }}
+              ></input>
+            </th>
+            <th>
+              <input className="input_tag_search"
+                type="text"
+                id="type"
+                onChange={(e) => {
+                  setTypeSearch(e.target.value.toLowerCase());
+                }}
+              ></input>
+            </th>
             <th>
               <input className="input_tag_search"
                 type="text"
@@ -149,12 +201,16 @@ function UnitOrders() {
             </th>
           </tr>
 
+        </thead>
+        <tbody>
+
           {unitOrdersFiltered &&
             unitOrdersFiltered.map((item) => (
               <tr key={item.id}>
                 <th>{item.id}</th>
-                <th>{item.type.id + " : " + item.type.descryption}</th>
-                <th>{item.tagLabel}</th>
+                <th>{item.orderId}</th>
+                <th>{item.type.id}</th>
+                <th>{item.tagLabel + " - " + item.tagLabelNo}</th>
                 <th className="tr-comments">{item.comment}</th>
                 <th>{item.price.toFixed(2)}</th>
                 <th>

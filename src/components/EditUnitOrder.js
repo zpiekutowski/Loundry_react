@@ -11,6 +11,7 @@ function EditUnitOrder() {
   const [idType, setIdType] = useState();
   const [idTypeDescryption, setIdTypeDescryption] = useState("");
   const [tag, setTag] = useState("");
+  const [tagNo, setTagNo] = useState("");
   const [comment, setComment] = useState("");
   const [price, setPrice] = useState("");
 
@@ -40,6 +41,7 @@ function EditUnitOrder() {
         setIdType(resp.type.id);
         setIdTypeDescryption(resp.type.descryption);
         setTag(resp.tag);
+        setTagNo(resp.tagNo);
         setComment(resp.comment);
         setPrice(resp.price);
       })
@@ -62,6 +64,7 @@ function EditUnitOrder() {
       rowNumber: idRow,
       type: { id: idType, descryption: idTypeDescryption },
       tag,
+      tagNo,
       comment,
       price,
     };
@@ -108,12 +111,21 @@ function EditUnitOrder() {
           <div className="intut-customer">
             <div className="title_form">TAG:</div>
             <input
-              maxLength={6}
+              maxLength={3}
               className="input_tag"
               type="text"
               value={tag}
               onChange={(e) => setTag(e.target.value)}
             ></input>
+             <input
+              maxLength={5}
+              className="input_tag"
+              type="text"
+              value={tagNo}
+              onChange={(e) => setTagNo(e.target.value)}
+            ></input>
+
+
           </div>
           <div className="intut-customer">
             <div className="title_form">Opis:</div>

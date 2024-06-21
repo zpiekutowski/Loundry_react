@@ -10,6 +10,7 @@ function EditUnitOrderInProgres() {
   const [idType, setIdType] = useState();
   const [idTypeDescryption, setIdTypeDescryption] = useState("");
   const [tagLabel, setTagLabel] = useState("");
+  const [tagLabelNo, setTagLabelNo] = useState("");
   const [comment, setComment] = useState("");
   const [unitPrice, setUnitPrice] = useState("");
   const [finishDate, setFinishDate] = useState("");
@@ -40,6 +41,7 @@ function EditUnitOrderInProgres() {
         setIdType(respond.type.id);
         setIdTypeDescryption(respond.type.descryption);
         setTagLabel(respond.tagLabel);
+        setTagLabelNo(respond.tagLabelNo);
         setComment(respond.comment);
         setUnitPrice(respond.unitPrice);
         setFinishDate(respond.finishDate);
@@ -55,6 +57,7 @@ function EditUnitOrderInProgres() {
         id: idUnitOrder,
         type: { id: idType, descryption: idTypeDescryption },
         tagLabel,
+        tagLabelNo,
         comment,
         unitPrice,
         finishDate,
@@ -98,45 +101,55 @@ function EditUnitOrderInProgres() {
       </div>
       <div className="frame">
 
-      <div className="left_frame">
-      <div className="intut-customer">
-              <div className="title_form">Typ:</div>
-              <div>{idType && idType + "  " + idTypeDescryption}</div>
-            </div>
+        <div className="left_frame">
+          <div className="intut-customer">
+            <div className="title_form">Typ:</div>
+            <div>{idType && idType + "  " + idTypeDescryption}</div>
+          </div>
 
           <div>
             <div className="intut-customer">
-            <div className="title_form">TAG:</div>
-            <input
-              maxLength={6}
-              className="input_tag"
-              type="text"
-              value={tagLabel}
-              onChange={(e) => setTagLabel(e.target.value)}
-            ></input>
-          </div>
-          <div className="intut-customer">
-            <div className="title_form">Opis:</div>
-            <textarea
-              maxLength={100}
-              className="input; input_comments "
-              type="text"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            ></textarea>
-          </div>
-          <div className="intut-customer">
-            <div className="title_form">CENA</div>
-            <input
-              className="input_price"
-              type="number"
-              min="0.00"
-              max="4000.00"
-              step="1"
-              value={unitPrice}
-              onChange={(e) => setUnitPrice(e.target.value)}
-            />
-          </div>
+              <div className="title_form">TAG:</div>
+              <input
+                maxLength={3}
+                className="input_tag"
+                type="text"
+                value={tagLabel}
+                onChange={(e) => setTagLabel(e.target.value)}
+              ></input>
+              <input
+                maxLength={5}
+                className="input_tag"
+                type="text"
+                value={tagLabelNo}
+                onChange={(e) => setTagLabelNo(e.target.value)}
+              ></input>
+
+
+
+            </div>
+            <div className="intut-customer">
+              <div className="title_form">Opis:</div>
+              <textarea
+                maxLength={100}
+                className="input; input_comments "
+                type="text"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+            </div>
+            <div className="intut-customer">
+              <div className="title_form">CENA</div>
+              <input
+                className="input_price"
+                type="number"
+                min="0.00"
+                max="4000.00"
+                step="1"
+                value={unitPrice}
+                onChange={(e) => setUnitPrice(e.target.value)}
+              />
+            </div>
           </div>
           <br />
           <div>
@@ -179,7 +192,7 @@ function EditUnitOrderInProgres() {
           </table>
         </div>
 
-        
+
       </div>
     </div>
   );

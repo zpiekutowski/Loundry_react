@@ -10,7 +10,7 @@
   text-align: center;
 }
 .input_tag_search{
-  width: 60px;
+  width: 30px;
   text-align: center;
 }
 .input_comments_search{
@@ -43,7 +43,7 @@
 }
 .input_tag{
   border-radius: 10px;
-  width: 70px;
+  width: 50px;
   margin-right: 20px;
   margin-left: 10px;
   border-color: #2ea44f;
@@ -52,6 +52,8 @@
   text-align: center;
   font-size: 18px;
 }
+
+
 .input_comments{
   border-radius: 10px;
   width: 250px;
@@ -209,7 +211,9 @@ text-decoration: underline;
   width: 98%;
   padding-left: 20px;
   padding-right: 20px;
-  
+position: fixed;
+ /* position: sticky; */
+  z-index: 10;
 }
 .header ul{
   display: flex;
@@ -226,6 +230,12 @@ text-decoration: underline;
 .header li{
   margin: 0 30px;
 }
+.background_header{
+  width: 100%;
+  height: 40px;
+  position: sticky;
+  z-index: 1;
+  }
 
 .styled-table {
   border-collapse: collapse;
@@ -234,12 +244,18 @@ text-decoration: underline;
   font-family: sans-serif;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  /* overflow-y: auto;  */
+
 }
-.styled-table thead tr {
-  background-color: #03b983;
+.styled-table thead {
+  background-color: #027e58;
   color: #ffffff;
   text-align: center;
+  position: sticky;
+  top: 50px;
+  z-index: 1;
 }
+
 .tr-action{
   text-align: left;
 }

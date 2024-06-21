@@ -32,6 +32,24 @@ function ArchiveOrderDetails() {
     }
   }
 
+  async function handleRestore(){
+    try {
+      const respond = await fetch(URL + "/archive/restore/" + idOrder, {
+        method: "PUT",
+        credentials: "include",
+      });
+      if (respond.status === 200) {
+        alert("Zamowienie przywrocone");
+        navigate(-1);
+      } else {
+        alert("Blad archiwum");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    
+  }
+
   return (
     <div className="main_frame">
       {order === null && (
@@ -106,7 +124,7 @@ function ArchiveOrderDetails() {
                   <tr key={item.id}>
                     <th>{item.id}</th>
                     <th>{item.type.id + " " + item.type.descryption}</th>
-                    <th>{item.tagLabel}</th>
+                    <th>{item.tagLabel + " - " + item.tagLabelNo}</th>
                     <th className="tr-comments">{item.comment}</th>
                     <th>{item.unitPrice.toFixed(2)}</th>
                     <th>
@@ -125,6 +143,12 @@ function ArchiveOrderDetails() {
       <button className="btn" onClick={handleBack}>
         POWROT
       </button>
+
+      <button className="btn" onClick={handleRestore}>
+        PRZYWROC
+      </button>
+
+
     </div>
   );
 }

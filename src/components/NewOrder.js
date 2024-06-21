@@ -228,7 +228,7 @@ function NewOrder() {
                     <tr key={item.rowNumber}>
                       <th>{item.rowNumber}</th>
                       <th>{item.type.id + " : " + item.type.descryption}</th>
-                      <th>{item.tag}</th>
+                      <th>{item.tag + " - " + item.tagNo}</th>
                       <th className="tr-comments">{item.comment}</th>
 
                       <th>{item.price.toFixed(2)}</th>

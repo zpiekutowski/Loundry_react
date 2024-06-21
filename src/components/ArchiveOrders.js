@@ -123,6 +123,9 @@ function ArchiveOrders() {
                   >
                     SZCZEGOLY
                   </button>
+
+
+
                 </th>
               </tr>
             ))}

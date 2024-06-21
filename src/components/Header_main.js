@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 function Header_main() {
   return (
+    <div> 
     <div className="header">
       <ul>
         <li>
@@ -28,6 +29,8 @@ function Header_main() {
         </li>
 
       </ul>
+    </div>
+    <div className="background_header"></div>
     </div>
   );
 }

@@ -14,7 +14,11 @@ function ChooseCustomer() {
         return res.json();
       })
       .then((resp) => {
-        setCustomers(resp);
+        //remove customer No 1  - mark as deelted
+        const noCustomer1 = resp.filter((n)=>
+            (n.id !== 1) 
+        )
+        setCustomers(noCustomer1);
       })
       .catch((err) => {
         console.log(err.message);

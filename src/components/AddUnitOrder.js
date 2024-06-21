@@ -8,6 +8,7 @@ function AddUnitOrder() {
   const [idType, setIdType] = useState(null);
   const [idTypeDescryption, setIdTypeDescryption] = useState("");
   const [tag, setTag] = useState("");
+  const [tagNo, setTagNo] = useState("");
   const [comment, setComment] = useState("");
   const [price, setPrice] = useState("");
 
@@ -39,6 +40,7 @@ function AddUnitOrder() {
       const orderUnit = {
         type: { id: idType, descryption: idTypeDescryption },
         tag,
+        tagNo,
         comment,
         price,
       };
@@ -90,13 +92,25 @@ function AddUnitOrder() {
           <div className="intut-customer">
             <div className="title_form">TAG:</div>
             <input
-              maxLength={6}
+              maxLength={3}
               className="input_tag"
               type="text"
               value={tag}
               onChange={(e) => setTag(e.target.value)}
             ></input>
+
+            <input
+              maxLength={5}
+              className="input_tag"
+              type="text"
+              value={tagNo}
+              onChange={(e) => setTagNo(e.target.value)}
+            ></input>
+
+
           </div>
+
+
           <div className="intut-customer">
             <div className="title_form">Opis:</div>
             <textarea

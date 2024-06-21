@@ -6,6 +6,13 @@ function Orders() {
   const [orders, setOrders] = useState(null);
   const navigate = useNavigate();
   const [refresh, setRefresh] = useState(true);
+  const [ordersOrginal, setOrdersOrginal] = useState(null);
+
+  const [orderSearch, setOrderSearch] = useState("");
+  const [customerSearch, setCustomerSearch] = useState("");
+  const [customerIdSearch, setCustomerIdSearch] = useState("");
+  
+
 
   useEffect(() => {
     fetch(URL + "/order/all", {
@@ -17,32 +24,60 @@ function Orders() {
       })
       .then((resp) => {
         setOrders(resp);
+        setOrdersOrginal(resp);
+        clearAllSearch();
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, [refresh]);
 
-function handleDetails(orderId){
+  function handleDetails(orderId) {
     navigate("/orders/detils/" + orderId);
+  }
+
+  useEffect(()=>{
+    if (ordersOrginal !== null) {
+      const result = ordersOrginal.filter(
+        (n) => 
+        n.id.toString().includes(orderSearch) &&
+        n.customerName.toLowerCase().includes(customerSearch) &&
+        n.customerId.toString().includes(customerIdSearch)
+      );
+      setOrders(result);
+    }},[orderSearch, customerSearch, customerIdSearch]);
+  
+function clearAllSearch(){
+  document.getElementById("orderSearch").value = "";
+  document.getElementById("customerSearch").value = "";
+  document.getElementById("customerIdSearch").value = "";
+
+  setCustomerSearch("");
+  setOrderSearch("");
+  setCustomerIdSearch("");
 }
 
-async function handleCloseOrder(orderId){
-  if (window.confirm("Potwierdz wydanie zamowienia nr: " + orderId)) {
-    const respond = await fetch(URL + "/order/close/" + orderId,{
-      method: "POST",
-      credentials: "include",
+    function handleClearSearch(){
+      clearAllSearch();
+      setRefresh(!refresh);
+    }
+
+  async function handleCloseOrder(orderId) {
+    if (window.confirm("Potwierdz wydanie zamowienia nr: " + orderId)) {
+      const respond = await fetch(URL + "/order/close/" + orderId, {
+        method: "POST",
+        credentials: "include",
       });
-      const result = await respond.json();
-      if (result.status === true) {
+      if (respond.status === 200) {
         alert("Wydano zamowienie: " + orderId);
         setRefresh(!refresh);
 
       } else {
         alert("Wydanie zamowienia nie powiodło się");
       }
+    }
   }
-}
+
 
 
   return (
@@ -54,13 +89,51 @@ async function handleCloseOrder(orderId){
           <thead>
             <tr>
               <th>#</th>
+              <th>K#</th>
               <th>Klient</th>
-              <th>Ilosc pozycji</th>
+              <th>LP</th>
               <th>Data Przyjęcia</th>
               <th>Na kiedy</th>
               <th>Cena</th>
               <th>Status</th>
               <th></th>
+            </tr>
+            <tr>
+              <th>
+                <input className="input_tag_search"
+                  type="text"
+                  id="orderSearch"
+                  onChange={(e) => {
+                    setOrderSearch(e.target.value.toLowerCase());
+                  }}
+                ></input>
+              </th>
+              <th>
+              <input className="input_tag_search"
+                  type="text"
+                  id="customerIdSearch"
+                  onChange={(e) => {
+                    setCustomerIdSearch(e.target.value.toLowerCase());
+                  }}
+                ></input>
+              </th>
+              <th>
+              <input className="input_comments_search"
+                  type="text"
+                  id="customerSearch"
+                  onChange={(e) => {
+                    setCustomerSearch(e.target.value.toLowerCase());
+                  }}
+                ></input>
+              </th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th> 
+                <button className="btn1" onClick={handleClearSearch}>WYCZYSC</button>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -68,26 +141,27 @@ async function handleCloseOrder(orderId){
               orders.map((item) => (
                 <tr key={item.id}>
                   <th>{item.id}</th>
+                  <th>{item.customerId}</th>
                   <th>{item.customerName}</th>
                   <th>{item.unitQtn}</th>
                   <th>{item.startingDate.toString().split("-").reverse().join("-")}</th>
                   <th>{item.planedFinishDate.toString().split("-").reverse().join("-")}</th>
                   <th>{item.price.toFixed(2)}</th>
                   <th>{
-                  (item.ready && "DO WYDANIA")
-                  ||(!item.ready && "WTRAKCIE")
-                   }</th>
-                  
+                    (item.ready && "DO WYDANIA")
+                    || (!item.ready && "")
+                  }</th>
+
                   <th className="tr-action">
                     <button className="btn1"
-                     onClick={()=>{handleDetails(item.id)}}>
+                      onClick={() => { handleDetails(item.id) }}>
                       SZCZEGOLY
                     </button>
                     {item.ready && <button className="btn1"
-                     onClick={()=>{handleCloseOrder(item.id)}}>
+                      onClick={() => { handleCloseOrder(item.id) }}>
                       WYDAJ
                     </button>}
-                                        
+
                   </th>
                 </tr>
               ))}

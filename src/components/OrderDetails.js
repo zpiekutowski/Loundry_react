@@ -60,12 +60,11 @@ function OrderDetails() {
         method: "GET",
         credentials: "include",
       });
-      const result = await respond.json();
-
-      if (result.status === true) {
+      
+      if (respond.status === 200) {
         alert("Wydrukowano poprawnie");
       } else {
-        alert("Wydruk nie powidl sie");
+        alert("Blad wydruku");
       }
     } catch (err) {
       console.log(err);
@@ -125,7 +124,8 @@ function OrderDetails() {
                     <tr key={item.id}>
                       <th>{item.id}</th>
                       <th>{item.type.id + " : " + item.type.descryption}</th>
-                      <th>{item.tagLabel}</th>
+                      <th>{item.tagLabel + " - " + 
+                      item.tagLabelNo }</th>
                       <th className="tr-comments">{item.comment}</th>
                       <th>{item.unitPrice.toFixed(2)}</th>
                       <th>
